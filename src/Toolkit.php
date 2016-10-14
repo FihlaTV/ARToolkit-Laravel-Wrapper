@@ -2,7 +2,7 @@
 
 namespace JapSeyz\Ar;
 
-class ToolkitClass
+class Toolkit
 {
     /* Paths */
     protected $basepath;

@@ -13,6 +13,6 @@ class ToolkitFacade extends Facade
      */
     protected static function getFacadeAccessor()
     {
-        return 'artoolkit';
+        return 'toolkit';
     }
 }
