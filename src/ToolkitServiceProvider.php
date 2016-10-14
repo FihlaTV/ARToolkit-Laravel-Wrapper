@@ -19,6 +19,6 @@ class ToolkitServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->mergeConfigFrom(__DIR__.'/../config/config.php', 'artoolkit');
+        $this->mergeConfigFrom(__DIR__.'/../config/artoolkit.php', 'artoolkit');
     }
 }
