@@ -1,16 +1,26 @@
 {
-    "name": "japseyz/artoolkit",
+    "name": "japseyz/ar-toolkit",
     "description": "Laravel wrapper for ARToolkit",
+    "keywords": [
+        "JapSeyz",
+        "ARToolkit"
+    ],
+    "homepage": "https://github.com/JapSeyz/ARToolkit-Laravel-Wrapper",
     "license": "MIT",
     "authors": [
         {
             "name": "JapSeyz",
-            "email": "JapSeyz@JapSeyz.com"
+            "email": "JapSeyz@JapSeyz.com",
+            "homepage": "https://japseyz.com",
+            "role": "Developer"
         }
     ],
+    "require": {
+        "php" : "^7.0"
+    },
     "autoload": {
         "psr-4": {
-            "JapSeyz\\ArToolkit\\": "src/"
+            "JapSeyz\\ARToolkit\\": "src/"
         }
     },
     "minimum-stability": "dev",

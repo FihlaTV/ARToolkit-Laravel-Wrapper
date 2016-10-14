@@ -1,10 +1,10 @@
 <?php
 
-namespace JapSeyz\ArToolkit;
+namespace JapSeyz\ARToolkit;
 
 use Illuminate\Support\Facades\Facade;
 
-class ArToolkitFacade extends Facade
+class ARToolkitFacade extends Facade
 {
     /**
      * Get the registered name of the component.

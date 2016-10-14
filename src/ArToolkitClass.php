@@ -1,8 +1,8 @@
 <?php
 
-namespace JapSeyz\ArToolkit;
+namespace JapSeyz\ARToolkit;
 
-class ArToolkitClass
+class ARToolkitClass
 {
     /* Paths */
     protected $basepath;
