@@ -20,7 +20,7 @@
     },
     "autoload": {
         "psr-4": {
-            "JapSeyz\\ARToolkit\\": "src/"
+            "JapSeyz\\Ar\\": "src/"
         }
     },
     "minimum-stability": "dev",

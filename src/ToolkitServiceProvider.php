@@ -1,10 +1,10 @@
 <?php
 
-namespace JapSeyz\ARToolkit;
+namespace JapSeyz\Ar;
 
 use Illuminate\Support\ServiceProvider;
 
-class ARToolkitServiceProvider extends ServiceProvider
+class ToolkitServiceProvider extends ServiceProvider
 {
     /**
      * Bootstrap the application services.
