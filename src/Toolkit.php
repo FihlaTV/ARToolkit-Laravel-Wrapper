@@ -71,7 +71,7 @@ class Toolkit
             return false;
         }
         
-        $output = shell_exec($this->trainingCommand . ' ' . $path . ' 2>&1');
+        shell_exec($this->trainingCommand . ' ' . $path . ' 2>&1');
 
         return true;
     }
