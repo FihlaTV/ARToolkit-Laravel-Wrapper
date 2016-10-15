@@ -13,7 +13,7 @@ class ToolkitServiceProvider extends ServiceProvider
     {
         if ($this->app->runningInConsole()) {
             $this->publishes([
-                __DIR__ . '/../config/artoolkit.php' => config_path('skeleton.php'),
+                __DIR__ . '/../config/artoolkit.php' => config_path('artoolkit.php'),
             ], 'config');
         }
     }
