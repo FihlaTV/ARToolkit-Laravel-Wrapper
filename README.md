@@ -2,10 +2,9 @@
 * Download [ARToolkit](https://artoolkit.org/documentation/doku.php?id=1_Getting_Started:about_installing)
     * Extract ```tar xzvf ARToolKit5-bin-*.tar.gz```
     * Run ```./share/artoolkit5-setenv```
-    * Grab the filepath output from the previous command and add ```/bin```
-     to it and add it to ```~/.profile```
+    * Copy ```genTexData``` to /bin
      
-     
+     Add ```JapSeyz\Ar\ToolkitServiceProvider::class,``` to providers      
     
     
     

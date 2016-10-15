@@ -2,6 +2,8 @@
 
 namespace JapSeyz\Ar;
 
+use JapSeyz\Ar\ToolkitQueue;
+
 class Toolkit
 {
     /* Paths */
@@ -12,12 +14,6 @@ class Toolkit
     /* Commands */
     private $trainingCommand;
 
-    /* CLI Errors */
-    private $missingResolutionError = 'Enter resolution to use';
-
-    /**
-     * Create a new Skeleton Instance
-     */
     public function __construct()
     {
         $this->basepath = storage_path('app/ARToolkit/');
@@ -27,10 +23,11 @@ class Toolkit
         $this->trainingCommand = 'genTexData -level=' . config('artoolkit.level') .
             ' -leveli=' . config('artoolkit.leveli') .
             ' -max_dpi=' . config('artoolkit.max_dpi') .
-            ' -min_dpi=' . config('artoolkit.min_dpi');
+            ' -min_dpi=' . config('artoolkit.min_dpi') .
+            ' -dpi=' . config('artoolkit.default_dpi');
 
         // Check for ARToolkit bin in PATH
-        $binHaystack = shell_exec('genTexData');
+        $binHaystack = shell_exec('genTexData 2>&1');
         $binNeedle = 'Error: no input file specified';
 
         if (strpos($binHaystack, $binNeedle) === false) {
@@ -44,15 +41,20 @@ class Toolkit
         }
     }
 
-    public function retrain()
+    public function reload()
     {
         $files = array_diff(scandir($this->trainingpath), ['..', '.', '.DS_Store']);
 
         foreach ($files as $file) {
-            $this->train($this->trainingpath . $file);
+            dispatch(new ToolkitQueue($this->trainingpath . $file));
         }
 
-        return 'Training Complete';
+        return 'Training Initiated';
+    }
+
+    public function queue($path)
+    {
+        dispatch(new ToolkitQueue($path));
     }
 
     public function add($path)
@@ -64,14 +66,12 @@ class Toolkit
     {
         // Validate extension
         $ext = strtolower(pathinfo($path, PATHINFO_EXTENSION));
+
         if ($ext !== 'jpg' && $ext !== 'jpeg') {
             return false;
         }
-
-        $output = shell_exec($this->trainingCommand . ' ' . $path);
-        if (strpos($output, $this->missingResolutionError) !== false) {
-            shell_exec(config('artoolkit.default_dpi'));
-        }
+        
+        $output = shell_exec($this->trainingCommand . ' ' . $path . ' 2>&1');
 
         return true;
     }
