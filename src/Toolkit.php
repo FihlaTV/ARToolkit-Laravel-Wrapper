@@ -8,16 +8,12 @@ class Toolkit
 {
     /* Paths */
     protected $basepath;
-    protected $trainingpath;
-    protected $binpath;
-
     /* Commands */
     private $trainingCommand;
 
     public function __construct()
     {
         $this->basepath = storage_path('app/ARToolkit/');
-        $this->trainingpath = $this->basepath . 'marker_training/';
 
         /* Prepare Training Command */
         $this->trainingCommand = 'genTexData -level=' . config('artoolkit.level') .
@@ -36,20 +32,9 @@ class Toolkit
 
 
         // Make sure ARToolkit Directories exist
-        if (!@mkdir($this->trainingpath, 0777, true) && !is_dir($this->trainingpath)) {
-            abort('Cannot find or create marker-training directory');
+        if (!@mkdir($this->basepath, 0777, true) && !is_dir($this->basepath)) {
+            abort('Cannot find or create ARToolkit directory');
         }
-    }
-
-    public function reload()
-    {
-        $files = array_diff(scandir($this->trainingpath), ['..', '.', '.DS_Store']);
-
-        foreach ($files as $file) {
-            dispatch(new ToolkitQueue($this->trainingpath . $file));
-        }
-
-        return 'Training Initiated';
     }
 
     public function queue($path)
@@ -70,8 +55,8 @@ class Toolkit
         if ($ext !== 'jpg' && $ext !== 'jpeg') {
             return false;
         }
-        
-        shell_exec($this->trainingCommand . ' ' . $path . ' 2>&1');
+
+        shell_exec($this->trainingCommand . ' ' . $path);
 
         return true;
     }
