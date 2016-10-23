@@ -10,19 +10,17 @@
     "authors": [
         {
             "name": "JapSeyz",
-        },
-        "autoload": {
-            "psr-4": {
-                "JapSeyz\\Ar\\": "src/"
-            }
-        },
-        "minimum-stability": "dev",
-        "require": {}
-        }
             "email": "JapSeyz@JapSeyz.com",
             "homepage": "https://japseyz.com",
             "role": "Developer"
         }
     ],
+    "autoload": {
+        "psr-4": {
+            "JapSeyz\\Ar\\": "src/"
+        }
+    },
+    "minimum-stability": "dev",
     "require": {
         "php" : "^7.0"
+    }
