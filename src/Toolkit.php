@@ -8,30 +8,20 @@ class Toolkit
 {
     /* Paths */
     protected $basepath;
-    /* Commands */
-    private $trainingCommand;
 
     public function __construct()
     {
         $this->basepath = storage_path('app/ARToolkit/');
 
-        /* Prepare Training Command */
-        $this->trainingCommand = 'genTexData -level=' . config('artoolkit.level') .
-            ' -leveli=' . config('artoolkit.leveli') .
-            ' -max_dpi=' . config('artoolkit.max_dpi') .
-            ' -min_dpi=' . config('artoolkit.min_dpi') .
-            ' -dpi=' . config('artoolkit.default_dpi');
-
-        // Check for ARToolkit bin in PATH
         $binHaystack = shell_exec('genTexData 2>&1');
         $binNeedle = 'Error: no input file specified';
 
+        /* Make sure ARToolkit is in the PATH */
         if (strpos($binHaystack, $binNeedle) === false) {
             abort('The ARToolkit bin was not found in the PATH variable');
         }
 
-
-        // Make sure ARToolkit Directories exist
+        /*Make sure ARToolkit Directories exist*/
         if (!@mkdir($this->basepath, 0777, true) && !is_dir($this->basepath)) {
             abort('Cannot find or create ARToolkit directory');
         }
@@ -44,16 +34,16 @@ class Toolkit
 
     public function add($path)
     {
-        return $this->train($path);
+        return $this->learn($path);
     }
 
-    private function train($path)
+    private function learn($path)
     {
         // Validate extension
         $ext = strtolower(pathinfo($path, PATHINFO_EXTENSION));
 
         if ($ext !== 'jpg' && $ext !== 'jpeg') {
-            return false;
+            abort('The image must be a jpg or jpeg image');
         }
 
         shell_exec($this->trainingCommand . ' ' . $path);

@@ -1,7 +1,6 @@
 <?php
 
 return [
-
     'level' => 2, // 0 = few, 4 = many
     'leveli' => 1, // 0 = few, 3 = many
 
