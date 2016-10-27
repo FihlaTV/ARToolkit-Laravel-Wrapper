@@ -16,6 +16,13 @@ class Toolkit
         $binHaystack = shell_exec('genTexData 2>&1');
         $binNeedle = 'Error: no input file specified';
 
+        $this->trainingCommand = 'genTexData -level=' . config('artoolkit.level') .
+            ' -leveli=' . config('artoolkit.leveli') .
+            ' -max_dpi=' . config('artoolkit.max_dpi') .
+            ' -min_dpi=' . config('artoolkit.min_dpi') .
+            ' -dpi=' . config('artoolkit.default_dpi');
+
+
         /* Make sure ARToolkit is in the PATH */
         if (strpos($binHaystack, $binNeedle) === false) {
             \Log::error('The ARToolkit bin was not found in the PATH variable');
