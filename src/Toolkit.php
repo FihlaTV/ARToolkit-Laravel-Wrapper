@@ -18,12 +18,14 @@ class Toolkit
 
         /* Make sure ARToolkit is in the PATH */
         if (strpos($binHaystack, $binNeedle) === false) {
-            abort('The ARToolkit bin was not found in the PATH variable');
+            \Log::error('The ARToolkit bin was not found in the PATH variable');
+            abort(501, 'The ARToolkit bin was not found in the PATH variable');
         }
 
         /*Make sure ARToolkit Directories exist*/
         if (!@mkdir($this->basepath, 0777, true) && !is_dir($this->basepath)) {
-            abort('Cannot find or create ARToolkit directory');
+            \Log::error('Cannot find or create ARToolkit directory');
+            abort(501, 'Cannot find or create ARToolkit directory');
         }
     }
 
@@ -43,7 +45,8 @@ class Toolkit
         $ext = strtolower(pathinfo($path, PATHINFO_EXTENSION));
 
         if ($ext !== 'jpg' && $ext !== 'jpeg') {
-            abort('The image must be a jpg or jpeg image');
+            \Log::error('The image must be a jpg or jpeg image');
+            abort(501, 'The image must be a jpg or jpeg image');
         }
 
         shell_exec($this->trainingCommand . ' ' . $path);
