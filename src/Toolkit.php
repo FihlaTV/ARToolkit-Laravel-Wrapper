@@ -19,9 +19,7 @@ class Toolkit
         $this->trainingCommand = 'genTexData -level=' . config('artoolkit.level') .
             ' -leveli=' . config('artoolkit.leveli') .
             ' -max_dpi=' . config('artoolkit.max_dpi') .
-            ' -min_dpi=' . config('artoolkit.min_dpi') .
-            ' -dpi=' . config('artoolkit.default_dpi');
-
+            ' -min_dpi=' . config('artoolkit.min_dpi');
 
         /* Make sure ARToolkit is in the PATH */
         if (strpos($binHaystack, $binNeedle) === false) {
@@ -56,7 +54,14 @@ class Toolkit
             abort(501, 'The image must be a jpg or jpeg image');
         }
 
-        shell_exec($this->trainingCommand . ' ' . $path);
+        $output = shell_exec($this->trainingCommand . ' ' . $path);
+        $error = 'does not contain embedded resolution data, and no resolution specified on command-line.';
+
+        /* Make sure ARToolkit is in the PATH */
+        if (strpos($output, $error) === false) {
+            $this->trainingCommand .= ' -dpi=' . config('artoolkit.default_dpi');
+            shell_exec($this->trainingCommand . ' ' . $path);
+        }
 
         return true;
     }
